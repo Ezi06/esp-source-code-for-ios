@@ -6,7 +6,6 @@ struct player_t {
     CGPoint topofbox;
     CGPoint bottomofbox;
     float health;
-    float distance;
     bool enemy;
 };
 @interface esp : UIView
@@ -15,6 +14,7 @@ struct player_t {
 @property bool healthbarr;
 @property bool distanceesp;
 @property std::vector<player_t *> *players;
+- (void)Update;
 - (void)drawRect:(CGRect)rect;
 - (id)initWithFrame:(UIWindow*)main;
 @end
