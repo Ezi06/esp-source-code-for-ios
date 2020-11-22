@@ -8,8 +8,6 @@ initialize it static esp * es;
 
 es = [[esp alloc]initWithFrame:main];
 
-and redraw the screen in your tweak.xm with [es setNeedsDisplay];
-
 figure out the rest.
 
 you can do pull requests if you want 
