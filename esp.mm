@@ -18,12 +18,17 @@
         players = new std::vector<player_t *>();
     }
     [main addSubview:self];
+    CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(Update)];
+    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     return self;
+}
+- (void)Update {
+    [self setNeedsDisplay];
 }
 - (void)drawRect:(CGRect)rect {
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
     CGContextClearRect(contextRef,self.bounds);
-    CGContextSetLineWidth(contextRef, 1.0);
+    CGContextSetLineWidth(contextRef, 0.5);
     CGColor *colour;
     UIColor *Ucolour;
     for(int i = 0; i < players->size(); i++) {
@@ -55,16 +60,6 @@
             float cc = (*players)[i]->health/100;
             CGRect healthbar = CGRectMake((*players)[i]->healthbar.origin.x, (*players)[i]->healthbar.origin.y, (*players)[i]->healthbar.size.width, (*players)[i]->healthbar.size.height*cc);
             CGContextFillRect(contextRef, healthbar);
-        }
-        if(distanceesp){
-            NSString *text = [NSString stringWithFormat:@"%.0f", (*players)[i]->distance];
-            float xd = 30 / ((*players)[i]->distance/10);
-            if(xd>25){
-                xd = 25.0f;
-            }
-            xd = (*players)[i]->box.size.width/2;
-            NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:xd], NSForegroundColorAttributeName:Ucolour};
-            [text drawAtPoint:CGPointMake(((*players)[i]->box.origin.x), ((*players)[i]->bottomofbox.y)) withAttributes:attributes];
         }
     }
     
